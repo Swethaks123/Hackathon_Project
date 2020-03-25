@@ -31,7 +31,7 @@ public static Connection getConnection() throws SQLException {
 Connection con=null;
 try {
 Class.forName("com.mysql.jdbc.Driver");
-con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employeedb?autoReconnect=true","root","Arunak@6561");
+con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employeedb?autoReconnect=true","root","swetha123");
 System.out.println("Success");
 }
 catch(ClassNotFoundException e) {
