@@ -1,0 +1,57 @@
+import java.io.*;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.util.*;
+import java.text.DecimalFormat;
+public class Battery {
+	private static DecimalFormat df = new DecimalFormat("0.00");
+	public static void main(String[] args)throws Exception 
+	  { 
+		String c1="Uid u0a202";
+		String c2="Foreground activities";
+		float Battery_percentage=0,Battery_drain=0;
+		File f = new File("C:\\Users\\swetha srinivasan\\Desktop\\inputbattery.txt"); 
+		Scanner br = new Scanner(f);
+		String st,st2,st3,Foreground=""; 
+		while ( br.hasNextLine()) 
+		{
+			st=br.nextLine();
+			st2=st;
+			String[] a = st2.split(":");
+			 a[0]=a[0].trim();
+				if(a[0].equals(c1))
+				{
+		         st3=a[1];
+		         String[] a1 = st3.split("\\(");
+		         Battery_drain=Float.parseFloat(a1[0]); 
+		         System.out.println(Battery_drain);
+				}
+				if(a[0].equals(c2))
+				{
+                 st3=a[1];
+		         String[] a1 = st3.split("\\(r");
+		         Foreground=a1[0].trim();
+		         System.out.println(Foreground);
+				} 
+			
+	   
+			  
+		}
+		Battery_percentage=(Battery_drain/1000);
+		System.out.println(Battery_percentage);
+
+		JSONObject obj=new JSONObject();
+		 
+		obj.put("Foreground_time",Foreground);
+		obj.put("Battery_drain" ,df.format(Battery_drain));
+		obj.put("Battery_percentage" ,df.format(Battery_percentage));
+		FileWriter file1=new FileWriter("C:\\Users\\swetha srinivasan\\Desktop\\output.json");
+		file1.write(obj.toString());
+		file1.flush();
+		file1.close();
+		System.out.println(obj);
+		
+	  } 
+	
+}
+
